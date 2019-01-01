@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
     entry: __dirname + '/app/main.js', //已多次提及的唯一入口文件
@@ -52,12 +52,6 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(), //为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
         // new webpack.optimize.UglifyJsPlugin(), //UglifyJsPlugin压缩JS代码；【官方已经remove】 
         // new ExtractTextPlugin('style.css'), //ExtractTextPlugin分离CSS和JS文件
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     },
-        //     sourceMap: true
-        // }),
 
         new UglifyJsPlugin({  //js代码压缩
             uglifyOptions: {
@@ -67,6 +61,9 @@ module.exports = {
             },
             sourceMap: true, //使用sourceMap将错误消息位置映射到模块(这会减慢编译速度)。如果您使用自己的minify函数，请阅读minify部分以正确处理sourceMap
             parallel: true
-        })
+        }),
+        // new ExtractTextPlugin({
+        //     filename: "style.css"
+        // })
     ]
 }
